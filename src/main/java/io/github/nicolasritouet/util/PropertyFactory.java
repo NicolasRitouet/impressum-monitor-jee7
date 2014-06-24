@@ -10,12 +10,19 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+/**
+ * Factory to inject the properties from the property files.
+ */
 public class PropertyFactory {
     private static final String ENVIRONMENT_NAME_KEY = "environment.name";
     private static final String DEFAULT_PROPS_FILENAME = "environment.properties";
     private static final String PROPS_FILENAME_FORMAT = "environment_%s.properties";
     private Properties environmentProps;
 
+    /**
+     * Initialize: load the property file in memory
+     * @throws IOException
+     */
     @PostConstruct
     public void initEnvironmentProps() throws IOException {
         environmentProps = new Properties();
@@ -32,6 +39,12 @@ public class PropertyFactory {
         environmentProps.load(inputStream);
     }
 
+    /**
+     *
+     * Get the value requested from the property file.
+     * @param ip The Injection Point (The variable where we want to inject the property
+     * @return The property value
+     */
     @Produces
     @Property
     public String getConfigValue(InjectionPoint ip) {

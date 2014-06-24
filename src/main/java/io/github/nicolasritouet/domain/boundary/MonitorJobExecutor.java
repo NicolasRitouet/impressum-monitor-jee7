@@ -6,6 +6,7 @@ import io.github.nicolasritouet.util.annotations.Property;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
+import javax.ejb.Schedule;
 import javax.ejb.Stateless;
 import javax.enterprise.inject.Default;
 import javax.inject.Inject;
@@ -42,6 +43,8 @@ public class MonitorJobExecutor {
     @Inject
     MonitorJobRepository monitorJobRepository;
 
+
+    @Schedule(hour="*", persistent=false)
     public void startCheckJobs() {
         logger.info("Start check job: " + new Date());
         String body;
